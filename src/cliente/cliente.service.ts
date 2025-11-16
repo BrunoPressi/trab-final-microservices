@@ -5,7 +5,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import { EntityConflictException } from '../exception/EntityConflictException';
 import { GenericException } from 'src/exception/GenericException';
 import { EntityNotFoundException } from 'src/exception/EntityNotFoundException';
-import { Cliente } from './entities/cliente.entity';
 
 @Injectable()
 export class ClienteService {
@@ -20,28 +19,33 @@ export class ClienteService {
       if (error.code === 'P2002') {
         throw new EntityConflictException('Cliente já cadastrado');
       }
-      throw new GenericException(error.message);
+      throw new GenericException('Erro interno no banco de dados');
     }
   }
 
   async findAll(pagina: number, limite: number) {
-    const skip = (pagina - 1) * limite;
+    try {
+      const skip = (pagina - 1) * limite;
 
-    const clientes =  await this.prismaService.cliente.findMany({
-      skip,
-      take: limite,
-      orderBy: { id: 'asc' }
-    });
+      const clientes =  await this.prismaService.cliente.findMany({
+        skip,
+        take: limite,
+        orderBy: { id: 'asc' }
+      });
 
-    const total = await this.prismaService.cliente.count();
+      const total = await this.prismaService.cliente.count();
 
-    return {
-      data: clientes,
-      total,
-      pagina,
-      limite,
-      totalPaginas: Math.ceil(total / limite),
-    };
+      return {
+        data: clientes,
+        total,
+        pagina,
+        limite,
+        totalPaginas: Math.ceil(total / limite),
+      };
+    }
+    catch (error) {
+      throw new GenericException('Erro interno no banco de dados');
+    }
   }
 
   async findOne(id: number) {
@@ -57,7 +61,7 @@ export class ClienteService {
       if (error.code === 'P2025') {
         throw new EntityNotFoundException(`Cliente ${id} não encontrado`);
       }
-      throw new GenericException(error.message);
+      throw new GenericException('Erro interno no banco de dados');
     }
   }
 
@@ -91,7 +95,7 @@ export class ClienteService {
       });
     }
     catch (error) {
-     throw error;
+      throw error;
     }
   }
 }

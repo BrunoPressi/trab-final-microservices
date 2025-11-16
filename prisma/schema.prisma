@@ -18,12 +18,12 @@ model Cliente {
 
 model Endereco {
   id Int @default(autoincrement()) @id
-  cep Int
+  cep String @unique
   cidade String
   estado String
-  rua String
-  bairro String
-  numero Int
+  rua String @unique
+  bairro String @unique
+  numero Int @unique
   complemento String?
   telefone String
   cliente Cliente @relation(fields: [clienteId], references: [id])
