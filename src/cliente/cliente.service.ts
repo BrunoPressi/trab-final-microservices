@@ -5,15 +5,20 @@ import { PrismaService } from '../prisma/prisma.service';
 import { EntityConflictException } from '../exception/EntityConflictException';
 import { GenericException } from '../exception/GenericException';
 import { EntityNotFoundException } from '../exception/EntityNotFoundException';
+import { PublisherService } from 'src/publisher/publisher.service';
+import { Cliente } from '@prisma/client';
 
 @Injectable()
 export class ClienteService {
 
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService, private publisherService: PublisherService) {}
 
   async create(createClienteDto: CreateClienteDto) {
     try {
-      return await this.prismaService.cliente.create({ data: createClienteDto });
+      const cliente: Cliente = await this.prismaService.cliente.create({ data: createClienteDto });
+
+      await this.publisherService.publishEvent('cliente_cadastrado', createClienteDto);
+      return cliente
     }
     catch (error) {
       if (error.code === 'P2002') {

@@ -21,6 +21,7 @@ import {
   getSchemaPath,
 } from '@nestjs/swagger';
 import { ResponseClienteDto } from 'src/cliente/dto/response-cliente.dto';
+import { PublisherService } from 'src/publisher/publisher.service';
 
 @ApiExtraModels(ResponseClienteDto)
 @Controller('cliente')

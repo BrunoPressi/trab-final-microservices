@@ -7,9 +7,12 @@ import { HealthModule } from 'src/common/health/health.module';
 import { MyLoggerService } from './common/logger/my-logger.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { PublisherModule } from './publisher/publisher.module';
+import { MailModule } from './mail/mail.module';
+import { SubscriberModule } from './subscriber/subscriber.module';
 
 @Module({
-  imports: [PrismaModule, ClienteModule, EnderecoModule, CepModule, HealthModule],
+  imports: [PrismaModule, ClienteModule, EnderecoModule, CepModule, HealthModule, PublisherModule, MailModule, SubscriberModule],
   controllers: [],
   providers: [
     // Registrar logger como provider global
