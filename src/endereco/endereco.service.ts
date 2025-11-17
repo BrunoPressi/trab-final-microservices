@@ -7,6 +7,7 @@ import { ClienteService } from '../cliente/cliente.service';
 import { GenericException } from '../exception/GenericException';
 import { EntityConflictException } from '../exception/EntityConflictException';
 import { EntityNotFoundException } from '../exception/EntityNotFoundException';
+import { InvalidCepException } from 'src/exception/InvalidCepException';
 
 @Injectable()
 export class EnderecoService {
@@ -40,7 +41,7 @@ export class EnderecoService {
       });
     }
     catch (error) {
-      if (error instanceof EntityNotFoundException) {
+      if (error instanceof InvalidCepException) {
         throw error;
       }
       if (error.code === 'P2002') {
