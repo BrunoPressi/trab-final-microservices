@@ -51,8 +51,8 @@ export class ClienteController {
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
   @ApiParam({ name: 'id', description: 'Id do cliente', type: Number, example: 1, required: true })
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateClienteDto: UpdateClienteDto) {
-    return this.clienteService.update(id, updateClienteDto);
+  async update(@Param('id') id: number, @Body() updateClienteDto: UpdateClienteDto) {
+    return await this.clienteService.update(id, updateClienteDto);
   }
 
   @ApiOperation({ summary: 'Excluir cliente' })
