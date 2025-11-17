@@ -1,20 +1,42 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { ClienteController } from './cliente.controller';
 import { ClienteService } from './cliente.service';
 
 describe('ClienteController', () => {
-  let controller: ClienteController;
+  let clienteController: ClienteController;
+  let clienteService: ClienteService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const mockClienteService = {
+      findOne: jest.fn(),
+    };
+
+    const moduleRef = await Test.createTestingModule({
       controllers: [ClienteController],
-      providers: [ClienteService],
+      providers: [
+        {
+          provide: ClienteService,
+          useValue: mockClienteService
+        }
+      ],
     }).compile();
 
-    controller = module.get<ClienteController>(ClienteController);
+    clienteService = moduleRef.get<ClienteService>(ClienteService);
+    clienteController = moduleRef.get<ClienteController>(ClienteController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  it('find one cliente', async () => {
+    const cliente = {
+      id: 1,
+      cpf: '397.180.190-06',
+      email: 'john.doe@email.com',
+      nomeCompleto: 'John Doe',
+      telefone: '5554996322831'
+    };
+
+    jest.spyOn(clienteService, 'findOne').mockResolvedValue(cliente);
+
+    expect(await clienteController.findOne(1)).toBe(cliente);
+    expect(clienteService.findOne).toHaveBeenCalled();
   });
 });

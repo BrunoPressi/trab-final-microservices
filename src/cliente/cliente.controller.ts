@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseFilters,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
@@ -41,7 +42,7 @@ export class ClienteController {
   @ApiResponse({ status: 404, description: 'Cliente não encontrado' })
   @ApiParam({ name: 'id', description: 'Id do cliente', type: Number, example: 1, required: true })
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.clienteService.findOne(id);
   }
 
@@ -51,7 +52,7 @@ export class ClienteController {
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
   @ApiParam({ name: 'id', description: 'Id do cliente', type: Number, example: 1, required: true })
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() updateClienteDto: UpdateClienteDto) {
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateClienteDto: UpdateClienteDto) {
     return await this.clienteService.update(id, updateClienteDto);
   }
 
@@ -60,7 +61,7 @@ export class ClienteController {
   @ApiResponse({ status: 404, description: 'Cliente não encontrado' })
   @ApiParam({ name: 'id', description: 'Id do cliente', type: Number, example: 1, required: true })
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.clienteService.remove(id);
   }
 }

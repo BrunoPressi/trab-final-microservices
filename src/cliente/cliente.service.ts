@@ -3,8 +3,8 @@ import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { EntityConflictException } from '../exception/EntityConflictException';
-import { GenericException } from 'src/exception/GenericException';
-import { EntityNotFoundException } from 'src/exception/EntityNotFoundException';
+import { GenericException } from '../exception/GenericException';
+import { EntityNotFoundException } from '../exception/EntityNotFoundException';
 
 @Injectable()
 export class ClienteService {
