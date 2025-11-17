@@ -52,6 +52,8 @@ export class EnderecoService {
 
   async findAll(clienteId: number, pagina: number, limite: number) {
     try {
+      await this.clienteService.findOne(clienteId);
+
       const skip = (pagina - 1) * limite;
 
       const enderecos = await this.prismaService.endereco.findMany(
@@ -76,6 +78,9 @@ export class EnderecoService {
       }
     }
     catch (error) {
+      if (error instanceof EntityNotFoundException) {
+        throw error;
+      }
       throw new GenericException('Erro interno no banco de dados');
     }
   }
