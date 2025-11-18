@@ -11,7 +11,7 @@ export class SubscriberController {
 
   /**
    * Event Pattern - Fire and Forget
-   * Escuta eventos publicados na fila 'eventos_pedidos'
+   * Escuta eventos publicados na fila 'eventos_clientes'
    * Não retorna resposta ao publisher
    * Múltiplos subscribers podem receber a mesma mensagem
    */

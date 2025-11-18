@@ -47,7 +47,7 @@ export class EnderecoService {
       if (error.code === 'P2002') {
         throw new EntityConflictException('Endereço já cadastrado');
       }
-      throw new GenericException('Erro interno no banco de dados');
+      throw error;
     }
   }
 
@@ -82,7 +82,7 @@ export class EnderecoService {
       if (error instanceof EntityNotFoundException) {
         throw error;
       }
-      throw new GenericException('Erro interno no banco de dados');
+      throw new error;
     }
   }
 
@@ -101,7 +101,7 @@ export class EnderecoService {
       if (error.code === 'P2025') {
         throw new EntityNotFoundException(`Endereço ${id} não encontrado`)
       }
-      throw new GenericException('Erro interno no banco de dados');
+      throw new error;
     }
   }
 

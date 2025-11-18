@@ -24,7 +24,7 @@ export class ClienteService {
       if (error.code === 'P2002') {
         throw new EntityConflictException('Cliente já cadastrado');
       }
-      throw new GenericException('Erro interno no banco de dados');
+      throw error;
     }
   }
 
@@ -49,7 +49,7 @@ export class ClienteService {
       };
     }
     catch (error) {
-      throw new GenericException('Erro interno no banco de dados');
+      throw error;
     }
   }
 
@@ -66,7 +66,7 @@ export class ClienteService {
       if (error.code === 'P2025') {
         throw new EntityNotFoundException(`Cliente ${id} não encontrado`);
       }
-      throw new GenericException('Erro interno no banco de dados');
+      throw error;
     }
   }
 
