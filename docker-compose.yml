@@ -15,7 +15,7 @@ services:
       - trab-mc-network
   microservice:
     env_file:
-      - .env.docker
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
