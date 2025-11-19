@@ -107,7 +107,7 @@ src/
 - Passo 4: Criar os arquivos `.env` e `.env.docker` e definir as variáveis de ambiente de acordo com o `.env.example.`
 - Passo 5: Abrir o terminal na raiz do projeto e executar `docker compose up -d postgres`.
 - Passo 6: Logo após executar: `npm run start:dev`.
-- Passo 7: Acessar `http://localhost:3001/docs` e testar os endpoints.
+- Passo 7: Acessar `http://localhost:3000/docs` e testar os endpoints.
 
 
 # Desenvolvido por: Bruno Pressi
