@@ -89,7 +89,7 @@ src/
 
 ---
 
-## 💻 Tutorial para rodar o projeto
+## 💻 Tutorial para rodar o projeto com Docker Compose
  
 - Passo 1: Instalar o [NodeJS](https://nodejs.org/pt) ou `sudo apt install -y nodejs` no Linux.
 - Passo 2: Instalar o [NestJS](https://docs.nestjs.com/#installation) ou `npm i -g @nestjs/cli`.
@@ -97,6 +97,16 @@ src/
 - Passo 4: Criar os arquivos `.env` e `.env.docker` e definir as variáveis de ambiente de acordo com o `.env.example.`
 - Passo 5: Abrir o terminal na raiz do projeto e executar `docker compose build`.
 - Passo 6: Logo após o build executar: `docker compose up`.
+- Passo 7: Acessar `http://localhost:3001/docs` e testar os endpoints.
+
+- ## 💻 Tutorial para rodar o projeto localmente
+ 
+- Passo 1: Instalar o [NodeJS](https://nodejs.org/pt) ou `sudo apt install -y nodejs` no Linux.
+- Passo 2: Instalar o [NestJS](https://docs.nestjs.com/#installation) ou `npm i -g @nestjs/cli`.
+- Passo 3: Clonar o projeto em sua máquina.
+- Passo 4: Criar os arquivos `.env` e `.env.docker` e definir as variáveis de ambiente de acordo com o `.env.example.`
+- Passo 5: Abrir o terminal na raiz do projeto e executar `docker compose up -d postgres`.
+- Passo 6: Logo após executar: `npm run start:dev`.
 - Passo 7: Acessar `http://localhost:3001/docs` e testar os endpoints.
 
 
