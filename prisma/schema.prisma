@@ -18,14 +18,14 @@ model Cliente {
 
 model Endereco {
   id Int @default(autoincrement()) @id
-  cep String @unique
+  cep String
   cidade String
   estado String
   rua String @unique
-  bairro String @unique
+  bairro String
   numero Int @unique
   complemento String?
   telefone String
-  cliente Cliente @relation(fields: [clienteId], references: [id])
+  cliente Cliente @relation(fields: [clienteId], references: [id], onDelete: Cascade)
   clienteId Int
 }
