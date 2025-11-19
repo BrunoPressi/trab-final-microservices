@@ -77,16 +77,15 @@ src/
 | PATCH  | /cliente/{id}                         | Atualizar parcialmente um cliente      |
 | GET    | /cliente                              | Buscar clientes                        |
 | GET    | /cliente/{id}                         | Buscar cliente por ID                  |
--------------------------------------------------------------------------------------------
 | POST   | /endereco/{clienteId}                 | Cadastrar endereço para cliente        |
 | DELETE | /endereco/{id}                        | Deletar um endereço                    |
 | PATCH  | /endereco/{id}                        | Atualizar parcialmente um endereço     |
 | GET    | /endereco/cliente/{clienteId}         | Buscar endereços do cliente            |
 | GET    | /endereco/{id}                        | Buscar endereço pelo ID                |
--------------------------------------------------------------------------------------------
 | GET    | /health                               | Health check completo                  |
 | GET    | /health/live                          | Verifica se a aplicação está rodando   |
 | GET    | /health/ready                         | Verifica se a aplicação recebe tráfego |
+| GET    | /docs                                 | Documentação da API |
 
 ---
 
