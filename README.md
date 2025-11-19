@@ -1,98 +1,104 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Trabalho Final Disciplina Desenvolvimento de Apis e Micro Serviços
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST com CRUD de 2 recursos (Cliente e Endereço), documentação e mensageria.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📚 Sumário
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [📚 Sumário](#-sumário)
+- [📌 Descrição](#-descrição)
+- [🚀 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [📁 Estrutura do Projeto](#-estrutura-do-projeto)
+- [📦 Endpoints da Aplicação](#-endpoints-da-aplicação)
+- [💻 Tutorial para rodar o projeto](#-tutorial-para-rodar-o-projeto) 
+---
 
-## Project setup
+## 📌 Descrição
 
-```bash
-$ npm install
+Este projeto foi desenvolvido como trabalho prático na disciplina de Desenvolvimento de Apis e Micro Serviços no curso de Análise e Desenvolvimento de Sistemas. O projeto contém tais funcionalidades:
+
+- CRUD de Clientes
+- CRUD de Endereços
+- Mensageria com RabbitMQ
+- Documentação com Swagger
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- Typescript
+- Node v22.20.0
+- NestJS v11.0.10
+- Swagger v11.2.1
+- Terminus v11.0.0
+- Prisma v6.19.0
+- Amqplib v0.10.9
+- Axios v1.13.2
+- Class-transformer v0.5.1
+- Class-validator v0.14.2
+- Dotenv v17.2.3
+- Nodemailer v7.0.10
+- Pg v8.16.3
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+│
+├── cep                  # Módulo CEP (CEP Service para validar o cep)
+├── cliente              # Módulo Cliente (DTOs, entidade, controller e service)
+├── common               # Observabilidade do sistema
+|   └── health           # Módulo Health (Health controller com endpoints para verificar o status do sistema, memória, etc...)
+|   └── logger           # Serviço de log personalizado
+|   └── interceptors     # Logging interceptor 
+├── config               # Configurações do Rabbit, Swagger e validações (ValidatorPipe)
+├── endereco             # Módulo Endereco (DTOs, entidade, controller e service) 
+├── exception            # Exceções personalizadas
+├── mail                 # Módulo Mail (Mail Service para envios de emails)
+├── prisma               # Módulo Prisma (Prisma Service para realizar persistência de dados)
+├── publisher            # Módulo Publisher (Publisher Service para publicar eventos em uma fila)
+├── subscriber           # Módulo Subscriber (Subscriber Controller para ouvir eventos de uma fila)
+└── validators           # Validators personalizados
+├── app.module.ts        # Módulo do aplicativo
+├── main.ts              # Arquivo principal do projeto
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 📦 Endpoints da Aplicação
+      
+| Método |           Endpoint                    |          Descrição                     |
+| ------ | ------------------------------------- | ------------------------------------   | 
+| POST   | /cliente                              | Criação de novo cliente                |
+| DELETE | /cliente/{id}                         | Deletar um cliente                     |
+| PATCH  | /cliente/{id}                         | Atualizar parcialmente um cliente      |
+| GET    | /cliente                              | Buscar clientes                        |
+| GET    | /cliente/{id}                         | Buscar cliente por ID                  |
+-------------------------------------------------------------------------------------------
+| POST   | /endereco/{clienteId}                 | Cadastrar endereço para cliente        |
+| DELETE | /endereco/{id}                        | Deletar um endereço                    |
+| PATCH  | /endereco/{id}                        | Atualizar parcialmente um endereço     |
+| GET    | /endereco/cliente/{clienteId}         | Buscar endereços do cliente            |
+| GET    | /endereco/{id}                        | Buscar endereço pelo ID                |
+-------------------------------------------------------------------------------------------
+| GET    | /health                               | Health check completo                  |
+| GET    | /health/live                          | Verifica se a aplicação está rodando   |
+| GET    | /health/ready                         | Verifica se a aplicação recebe tráfego |
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 💻 Tutorial para rodar o projeto
+ 
+- Passo 1: Instalar o [NodeJS](https://nodejs.org/pt) ou `sudo apt install -y nodejs` no Linux.
+- Passo 2: Instalar o [NestJS](https://docs.nestjs.com/#installation) ou `npm i -g @nestjs/cli`.
+- Passo 3: Clonar o projeto em sua máquina.
+- Passo 4: Criar os arquivos `.env` e `.env.docker` e definir as variáveis de ambiente de acordo com o `.env.example.`
+- Passo 5: Abrir o terminal na raiz do projeto e executar `docker compose --build`.
+- Passo 6: Logo após o build executar: `docker compose up`.
+- Passo 7: Acessar `http://localhost:3001/docs` e testar os endpoints.
 
-## Run tests
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Desenvolvido por: Bruno Pressi
